@@ -3,60 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impact Scorecard Dashboard</title>
+    <title>Impact Scorecard | Protective Accompaniment</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f4f7f6; }
-        header { text-align: center; padding: 40px 0; background: #00A896; color: white; border-radius: 8px; margin-bottom: 30px; }
-        .btn { display: inline-block; background: #FF6B6B; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.2em; margin-top: 10px; transition: background 0.3s; }
-        .btn:hover { background: #e05a5a; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px; }
-        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .card img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid #ddd; }
-        h2 { border-bottom: 2px solid #00A896; padding-bottom: 10px; margin-top: 40px; color: #2c3e50; }
-        .region-label { font-weight: bold; color: #00A896; margin-top: 10px; display: block; }
+        :root {
+            --primary: #00A896;
+            --secondary: #FF6B6B;
+            --dark: #2c3e50;
+            --light: #f4f7f6;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1100px; margin: 0 auto; padding: 20px; background-color: var(--light); }
+        header { text-align: center; padding: 50px 20px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        .intro-section { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .intro-section h2 { margin-top: 0; color: var(--primary); }
+
+        .controls { text-align: center; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        select { padding: 12px 25px; font-size: 1.1em; border-radius: 8px; border: 2px solid var(--primary); cursor: pointer; outline: none; }
+        
+        .btn-scorecard { display: inline-block; background: var(--secondary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 15px; transition: transform 0.2s; }
+        .btn-scorecard:hover { transform: translateY(-2px); background: #e05a5a; }
+
+        .chart-section { display: none; } /* Hidden by default, shown by JS */
+        .chart-section.active { display: block; animation: fadeIn 0.5s; }
+        
+        .chart-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
+        .chart-card h3 { color: var(--dark); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.5rem; }
+        .chart-card img { width: 100%; max-width: 1000px; height: auto; border-radius: 5px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9em; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Project Impact Scorecard</h1>
-    <p>Regional Analysis of Institutional Access, Safety, and Deterrence (2026)</p>
-    <a href="scorecard_table.html" class="btn">📊 View Interactive Full Scorecard</a>
+    <h1>Impact Scorecard Dashboard</h1>
+    <p>Analysis of Protective Accompaniment & Safety Perception Evolution</p>
+    <a href="scorecard_table.html" class="btn-scorecard">📊 Open Full Scorecard Table</a>
 </header>
 
-<section>
-    <h2>1. Institutional Access Heatmaps</h2>
-    <div class="grid-container">
-        <div class="card"><img src="Inorth.png" alt="Institutional North"><span class="region-label">North Region</span></div>
-        <div class="card"><img src="Isouth.png" alt="Institutional South"><span class="region-label">South Region</span></div>
-        <div class="card"><img src="Icentral.png" alt="Institutional Central"><span class="region-label">Central Region</span></div>
-    </div>
+<div class="intro-section">
+    <h2><strong>Protective Accompaniment<strong>: We track the impact of protective accompaniment though the restoration of a defender’s agency and their improved safety perception.</h2>
+    <p>This methodology allows to quantify the <strong>elasticity of action</strong>, or the degree to which a defender expands their mobility patterns and resumes high-profile activities.</p>
+    <p>By providing a physical and political presence, protective accompaniment reduces the space for aggression, allowing for the normalization of institutional engagement and the reduction of the "Safety Shadow."</p>
+</div>
 
-    <h2>2. The Deterrence Effect</h2>
-    <div class="grid-container">
-        <div class="card"><img src="Dnorth.png" alt="Deterrence North"><span class="region-label">North Region</span></div>
-        <div class="card"><img src="Dsouth.png" alt="Deterrence South"><span class="region-label">South Region</span></div>
-        <div class="card"><img src="Dcentral.png" alt="Deterrence Central"><span class="region-label">Central Region</span></div>
-    </div>
+<div class="controls">
+    <label for="regionSelect"><strong>Select Region to View Results:</strong> </label>
+    <select id="regionSelect" onchange="updateRegion()">
+        <option value="north">North Region</option>
+        <option value="south">South Region</option>
+        <option value="central">Central Region</option>
+    </select>
+</div>
 
-    <h2>3. Safety Profile Evolution</h2>
-    <div class="grid-container">
-        <div class="card"><img src="Snorth.png" alt="Safety North"><span class="region-label">North Region</span></div>
-        <div class="card"><img src="Ssouth.png" alt="Safety South"><span class="region-label">South Region</span></div>
-        <div class="card"><img src="Scentral.png" alt="Safety Central"><span class="region-label">Central Region</span></div>
+<div id="north" class="chart-section active">
+    <div class="chart-card">
+        <h3>1. Safety Profile Evolution</h3>
+        <img src="Snorth.png" alt="Safety Profile North">
     </div>
-
-    <h2>4. Safety Shadow: Perception vs. Reality</h2>
-    <div class="grid-container">
-        <div class="card"><img src="Shnorth.png" alt="Shadow North"><span class="region-label">North Region</span></div>
-        <div class="card"><img src="Shsouth.png" alt="Shadow South"><span class="region-label">South Region</span></div>
-        <div class="card"><img src="Shcentral.png" alt="Shadow Central"><span class="region-label">Central Region</span></div>
+    <div class="chart-card">
+        <h3>2. The Deterrence Effect</h3>
+        <img src="Dnorth.png" alt="Deterrence North">
     </div>
-</section>
+    <div class="chart-card">
+        <h3>3. Safety Shadow: Perception vs. Reality</h3>
+        <img src="Shnorth.png" alt="Safety Shadow North">
+    </div>
+    <div class="chart-card">
+        <h3>4. Institutional Access Heatmaps</h3>
+        <img src="Inorth.png" alt="Institutional Access North">
+    </div>
+</div>
 
-<footer style="text-align: center; margin-top: 50px; padding: 20px; color: #777;">
-    <p>&copy; 2026 Project Analysis Team. Data visualized via R and GitHub Pages.</p>
+<div id="south" class="chart-section">
+    <div class="chart-card">
+        <h3>1. Safety Profile Evolution</h3>
+        <img src="Ssouth.png" alt="Safety Profile South">
+    </div>
+    <div class="chart-card">
+        <h3>2. The Deterrence Effect</h3>
+        <img src="Dsouth.png" alt="Deterrence South">
+    </div>
+    <div class="chart-card">
+        <h3>3. Safety Shadow: Perception vs. Reality</h3>
+        <img src="Shsouth.png" alt="Safety Shadow South">
+    </div>
+    <div class="chart-card">
+        <h3>4. Institutional Access Heatmaps</h3>
+        <img src="Isouth.png" alt="Institutional Access South">
+    </div>
+</div>
+
+<div id="central" class="chart-section">
+    <div class="chart-card">
+        <h3>1. Safety Profile Evolution</h3>
+        <img src="Scentral.png" alt="Safety Profile Central">
+    </div>
+    <div class="chart-card">
+        <h3>2. The Deterrence Effect</h3>
+        <img src="Dcentral.png" alt="Deterrence Central">
+    </div>
+    <div class="chart-card">
+        <h3>3. Safety Shadow: Perception vs. Reality</h3>
+        <img src="Shcentral.png" alt="Safety Shadow Central">
+    </div>
+    <div class="chart-card">
+        <h3>4. Institutional Access Heatmaps</h3>
+        <img src="Icentral.png" alt="Institutional Access Central">
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 | Impact Scorecard Research Project | Built with R & GitHub Pages</p>
 </footer>
+
+<script>
+    function updateRegion() {
+        const selectedRegion = document.getElementById('regionSelect').value;
+        const sections = document.querySelectorAll('.chart-section');
+        
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        document.getElementById(selectedRegion).classList.add('active');
+        window.scrollTo({ top: document.querySelector('.controls').offsetTop - 20, behavior: 'smooth' });
+    }
+</script>
 
 </body>
 </html>
