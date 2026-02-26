@@ -8,127 +8,179 @@
         :root {
             --primary: #00A896;
             --secondary: #FF6B6B;
-            --dark: #2c3e50;
-            --light: #f4f7f6;
+            --dark: #1a252f;
+            --bg: #f8fafc;
+            --text: #334155;
+            --white: #ffffff;
         }
-        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1100px; margin: 0 auto; padding: 20px; background-color: var(--light); }
-        header { text-align: center; padding: 50px 20px; background: var(--primary); color: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        .intro-section { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .intro-section h2 { margin-top: 0; color: var(--primary); }
 
-        .controls { text-align: center; margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        select { padding: 12px 25px; font-size: 1.1em; border-radius: 8px; border: 2px solid var(--primary); cursor: pointer; outline: none; }
-        
-        .btn-scorecard { display: inline-block; background: var(--secondary); color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 15px; transition: transform 0.2s; }
-        .btn-scorecard:hover { transform: translateY(-2px); background: #e05a5a; }
+        /* Responsive Font Sizes */
+        html { font-size: 18px; } 
+        @media (max-width: 768px) { html { font-size: 16px; } }
 
-        .chart-section { display: none; } /* Hidden by default, shown by JS */
-        .chart-section.active { display: block; animation: fadeIn 0.5s; }
-        
-        .chart-card { background: white; padding: 25px; border-radius: 12px; margin-bottom: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-        .chart-card h3 { color: var(--dark); border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; font-size: 1.5rem; }
-        .chart-card img { width: 100%; max-width: 1000px; height: auto; border-radius: 5px; }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.8; 
+            color: var(--text); 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 15px; 
+            background-color: var(--bg); 
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        footer { text-align: center; padding: 40px; color: #888; font-size: 0.9em; }
+        /* Header Enhancement */
+        header { 
+            text-align: center; 
+            padding: 60px 25px; 
+            background: linear-gradient(135deg, var(--primary), #007d6f); 
+            color: white; 
+            border-radius: 20px; 
+            margin-bottom: 40px; 
+            box-shadow: 0 10px 25px rgba(0,168,150,0.2);
+        }
+        header h1 { font-size: 2.5rem; margin: 0; letter-spacing: -1px; }
+        header p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+
+        /* Modern Intro Box */
+        .intro-section { 
+            background: var(--white); 
+            padding: 40px; 
+            border-radius: 20px; 
+            margin-bottom: 40px; 
+            border-left: 8px solid var(--primary); 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .intro-section h2 { font-size: 1.8rem; color: var(--dark); margin-top: 0; }
+        .intro-section p { font-size: 1.1rem; }
+
+        /* Controls / Dropdown */
+        .controls { 
+            text-align: center; 
+            margin-bottom: 50px; 
+            position: sticky; 
+            top: 20px; 
+            z-index: 100;
+        }
+        select { 
+            padding: 15px 30px; 
+            font-size: 1.2rem; 
+            font-weight: 600;
+            border-radius: 50px; 
+            border: 3px solid var(--primary); 
+            background: var(--white);
+            cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        select:hover { transform: scale(1.05); border-color: var(--secondary); }
+
+        /* Scorecard Button */
+        .btn-scorecard { 
+            display: inline-block; 
+            background: var(--secondary); 
+            color: white; 
+            padding: 16px 35px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            margin-top: 25px; 
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+        .btn-scorecard:hover { background: #ff5252; transform: translateY(-3px); }
+
+        /* Chart Visuals */
+        .chart-section { display: none; }
+        .chart-section.active { display: block; animation: slideUp 0.6s ease-out; }
+
+        .chart-card { 
+            background: var(--white); 
+            padding: 30px; 
+            border-radius: 24px; 
+            margin-bottom: 50px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); 
+            text-align: center; 
+        }
+        .chart-card h3 { 
+            font-size: 1.6rem; 
+            color: var(--dark); 
+            margin-bottom: 25px; 
+            padding-bottom: 15px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        .chart-card img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        .chart-card img:hover { transform: scale(1.01); }
+
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        footer { text-align: center; padding: 60px 20px; color: #94a3b8; font-size: 1rem; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Impact Scorecard Dashboard</h1>
-    <p>Analysis of Protective Accompaniment & Safety Perception Evolution</p>
-    <a href="scorecard_table.html" class="btn-scorecard">📊 Open Full Scorecard Table</a>
+    <p>Regional Strategy & Institutional Evolution</p>
+    <a href="scorecard_table.html" class="btn-scorecard">📊 Launch Interactive Scorecard</a>
 </header>
 
 <div class="intro-section">
-    <h2><strong>Protective Accompaniment<strong>: We track the impact of protective accompaniment though the restoration of a defender’s agency and their improved safety perception.</h2>
-    <p>This methodology allows to quantify the <strong>elasticity of action</strong>, or the degree to which a defender expands their mobility patterns and resumes high-profile activities.</p>
-    <p>By providing a physical and political presence, protective accompaniment reduces the space for aggression, allowing for the normalization of institutional engagement and the reduction of the "Safety Shadow."</p>
+    <h2><strong>Protective Accompaniment</strong>: We measure the impact of protective accompaniment through the restoration of a defender’s agency and their improved safety perception.</h2>
+    <p>This methodology allows to <strong>quantify the elasticity of action</strong>, or the degree to which a defender expands their mobility patterns and resumes high-profile activities.</p>
 </div>
 
 <div class="controls">
-    <label for="regionSelect"><strong>Select Region to View Results:</strong> </label>
     <select id="regionSelect" onchange="updateRegion()">
-        <option value="north">North Region</option>
-        <option value="south">South Region</option>
-        <option value="central">Central Region</option>
+        <option value="north">🌎 North Region Results</option>
+        <option value="south">🌎 South Region Results</option>
+        <option value="central">🌎 Central Region Results</option>
     </select>
 </div>
 
 <div id="north" class="chart-section active">
-    <div class="chart-card">
-        <h3>1. Safety Profile Evolution</h3>
-        <img src="Snorth.png" alt="Safety Profile North">
-    </div>
-    <div class="chart-card">
-        <h3>2. The Deterrence Effect</h3>
-        <img src="Dnorth.png" alt="Deterrence North">
-    </div>
-    <div class="chart-card">
-        <h3>3. Safety Shadow: Perception vs. Reality</h3>
-        <img src="Shnorth.png" alt="Safety Shadow North">
-    </div>
-    <div class="chart-card">
-        <h3>4. Institutional Access Heatmaps</h3>
-        <img src="Inorth.png" alt="Institutional Access North">
-    </div>
+    <div class="chart-card"><h3>1. Safety Profile Evolution</h3><img src="Snorth.png"></div>
+    <div class="chart-card"><h3>2. The Deterrence Effect</h3><img src="Dnorth.png"></div>
+    <div class="chart-card"><h3>3. Safety Shadow: Perception vs. Reality</h3><img src="Shnorth.png"></div>
+    <div class="chart-card"><h3>4. Institutional Access Heatmaps</h3><img src="Inorth.png"></div>
 </div>
 
 <div id="south" class="chart-section">
-    <div class="chart-card">
-        <h3>1. Safety Profile Evolution</h3>
-        <img src="Ssouth.png" alt="Safety Profile South">
-    </div>
-    <div class="chart-card">
-        <h3>2. The Deterrence Effect</h3>
-        <img src="Dsouth.png" alt="Deterrence South">
-    </div>
-    <div class="chart-card">
-        <h3>3. Safety Shadow: Perception vs. Reality</h3>
-        <img src="Shsouth.png" alt="Safety Shadow South">
-    </div>
-    <div class="chart-card">
-        <h3>4. Institutional Access Heatmaps</h3>
-        <img src="Isouth.png" alt="Institutional Access South">
-    </div>
+    <div class="chart-card"><h3>1. Safety Profile Evolution</h3><img src="Ssouth.png"></div>
+    <div class="chart-card"><h3>2. The Deterrence Effect</h3><img src="Dsouth.png"></div>
+    <div class="chart-card"><h3>3. Safety Shadow: Perception vs. Reality</h3><img src="Shsouth.png"></div>
+    <div class="chart-card"><h3>4. Institutional Access Heatmaps</h3><img src="Isouth.png"></div>
 </div>
 
 <div id="central" class="chart-section">
-    <div class="chart-card">
-        <h3>1. Safety Profile Evolution</h3>
-        <img src="Scentral.png" alt="Safety Profile Central">
-    </div>
-    <div class="chart-card">
-        <h3>2. The Deterrence Effect</h3>
-        <img src="Dcentral.png" alt="Deterrence Central">
-    </div>
-    <div class="chart-card">
-        <h3>3. Safety Shadow: Perception vs. Reality</h3>
-        <img src="Shcentral.png" alt="Safety Shadow Central">
-    </div>
-    <div class="chart-card">
-        <h3>4. Institutional Access Heatmaps</h3>
-        <img src="Icentral.png" alt="Institutional Access Central">
-    </div>
+    <div class="chart-card"><h3>1. Safety Profile Evolution</h3><img src="Scentral.png"></div>
+    <div class="chart-card"><h3>2. The Deterrence Effect</h3><img src="Dcentral.png"></div>
+    <div class="chart-card"><h3>3. Safety Shadow: Perception vs. Reality</h3><img src="Shcentral.png"></div>
+    <div class="chart-card"><h3>4. Institutional Access Heatmaps</h3><img src="Icentral.png"></div>
 </div>
 
 <footer>
-    <p>&copy; 2026 | Impact Scorecard Research Project | Built with R & GitHub Pages</p>
+    <p>&copy; 2026 | Impact Scorecard | by Fernanda Chima</p>
 </footer>
 
 <script>
     function updateRegion() {
         const selectedRegion = document.getElementById('regionSelect').value;
         const sections = document.querySelectorAll('.chart-section');
-        
-        sections.forEach(section => {
-            section.classList.remove('active');
-        });
-        
+        sections.forEach(s => s.classList.remove('active'));
         document.getElementById(selectedRegion).classList.add('active');
-        window.scrollTo({ top: document.querySelector('.controls').offsetTop - 20, behavior: 'smooth' });
+        
+        // Smooth scroll to the top of the results
+        const scrollOffset = document.querySelector('.controls').offsetTop - 20;
+        window.scrollTo({ top: scrollOffset, behavior: 'smooth' });
     }
 </script>
 
